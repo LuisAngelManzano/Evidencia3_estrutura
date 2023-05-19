@@ -1,16 +1,3 @@
-    
-""""    
-
-ID=max(autor_id_existentes['ID'],default=0)+1
-        autorid_ids = autor_id_existentes['ID'].tolist()
-        autorid_apellidos = autor_id_existentes['APELLIDOS'].tolist()
-        autorid_nombres = autor_id_existentes['NOMBRES'].tolist()
-        autorid_ids.append(ID)
-        autorid_apellidos.append(APELLIDOS)
-        autorid_nombres.append(NOMBRES)
-
-"""#codigo parte opcion 1
-
 
 import os
 import openpyxl
@@ -73,7 +60,7 @@ except:
 
 while True:
     print(f'{"="*60}')
-    print("***********MENU PRICIPAL***********")
+    print("\t***********MENU PRICIPAL***********")
     opcion=int(input("\t[1] Registrar Nuevo Ejemplar\n\t[2] Consultas y Reportes\n\t[3] Registrar un Autor\n\t[4] Registrar un Genero\n\t[5] Salir\n\tSeleccione numero de opcion: "))
 
     print(f'{"="*60}')
@@ -127,8 +114,8 @@ while True:
     if opcion==2:
         while True:
             print(f'{"="*60}')
-            print("**      CONSULTAS Y REPORTES      **")
-            opcion_2=int(input("[1]Consulta de titulo\n[2]Reportes\n[3]Volver al menu de consultas y reportes\nElija una opcion:"))
+            print("\t\t| CONSULTAS Y REPORTES |")
+            opcion_2=int(input("\t[1] Consulta de titulo\n\t[2] Reportes\n\t[3] Volver al menu de consultas y reportes\n\tElija una opcion:"))
 
             if opcion_2==1:
                 while True:
@@ -139,8 +126,8 @@ while True:
                         conn=sqlite3.connect('biblioteca.db')
                         mi_cursor=conn.cursor()
                         mi_cursor.execute("SELECT ID,TITULO FROM BIBLIOTECA")
-                        RECOPILACION=mi_cursor.fetchall()
-                        DATA=pd.DataFrame(RECOPILACION)
+                        informacion=mi_cursor.fetchall()
+                        DATA=pd.DataFrame(informacion)
                         print("*"*40)
                         print(DATA)
                         print("*"*40)
@@ -149,8 +136,8 @@ while True:
                         mi_cursor=conn.cursor()
                         mi_cursor.execute("SELECT FROM BIBLIOTECA")
 
-                        RECOPILACION=mi_cursor.fetchall()
-                        DATA=pd.DataFrame(RECOPILACION,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
+                        informacion=mi_cursor.fetchall()
+                        DATA=pd.DataFrame(informacion,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
                         print(DATA)
                         continue
 
@@ -162,8 +149,8 @@ while True:
                         conn=sqlite3.connect('biblioteca.db')
                         mi_cursor=conn.cursor()
                         mi_cursor.execute("SELECT*FROM BIBLOTECA WHERE = ISBN",ISBN)
-                        RECOPILACION=mi_cursor.fetchall()
-                        DATA=pd.DataFrame(RECOPILACION,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
+                        informacion=mi_cursor.fetchall()
+                        DATA=pd.DataFrame(informacion,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
                         print(DATA)
                         continue
                     if opcion2_1==3:
@@ -173,17 +160,17 @@ while True:
             if opcion_2==2:
                 while True:
                     print("*"*40) 
-                    print("**            REPORTES            **")
+                    print("\t\t| REPORTES |")
                     print("*"*40)
-                    opcion2_2=int(input("[1]Catalago completo\n[2]Reporte por autor\n[3]Reporte por género\n[4]Por año de publicación\n[5]Volver al menú de reportes\nElija una opcion: "))
+                    opcion2_2=int(input("\t[1] Catalago completo\n\t[2] Reporte por autor\n\t[3] Reporte por género\n\t[4] Por año de publicación\n\t[5] Volver al menú de reportes\n\tElija una opcion: "))
                     print("")
                     if opcion2_2==1:
                         print(f'{"="*60}')
                         conn=sqlite3.connect('biblioteca.db')
                         mi_cursor=conn.cursor()
                         mi_cursor.execute("SELECT*FROM BIBLIOTECA")
-                        RECOPILACION=mi_cursor.fetchall()
-                        DATA=pd.DataFrame(RECOPILACION,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
+                        informacion=mi_cursor.fetchall()
+                        DATA=pd.DataFrame(informacion,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
                         print(DATA)
                         print(f'{"="*60}')
                         opcion2_2_1=int(input("[1]Exportar reporte en formato CSV\n[2]Exportar reporte en formato MsExcel\n[3]No exportar nada\n Elija una opcion:"))
@@ -203,8 +190,8 @@ while True:
                         conn=sqlite3.connect('biblioteca.db')
                         mi_cursor=conn.cursor()
                         mi_cursor.execute("SELECT AUTOR.ID,BIBLIOTECA.ID_AUTOR,BIBLIOTECA.AUTOR FROM BIBLIOTECA JOIN AUTOR ON AUTOR.ID=BIBLIOTECA.ID_AUTOR")
-                        RECOPILACION=mi_cursor.fetchall()
-                        DATA=pd.DataFrame(RECOPILACION,columns=['ID','ID_AUTOR','AUTOR'])
+                        informacion=mi_cursor.fetchall()
+                        DATA=pd.DataFrame(informacion,columns=['ID','ID_AUTOR','AUTOR'])
                         print(DATA)
                         print(f'{"="*60}')
 
@@ -212,8 +199,8 @@ while True:
                         conn=sqlite3.connect('biblioteca.db')
                         mi_cursor=conn.cursor()
                         mi_cursor.execute("SELECT*FROM BIBLOTECA WHERE = AUTOR",AUTOR)
-                        RECOPILACION=mi_cursor.fetchall()
-                        DATA=pd.DataFrame(RECOPILACION,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
+                        informacion=mi_cursor.fetchall()
+                        DATA=pd.DataFrame(informacion,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
                         print(DATA)
 
                         opcion2_2_2=int(input("[1]Exportar reporte en formato CSV\n[2]Exportar reporte en formato MsExcel\n[3]No exportar nada\n Elija una opcion:"))
@@ -236,8 +223,8 @@ while True:
                         conn=sqlite3.connect('biblioteca.db')
                         mi_cursor=conn.cursor()
                         mi_cursor.execute("SELECT*FROM BIBLOTECA WHERE ",GENERO)
-                        RECOPILACION=mi_cursor.fetchall()
-                        DATA=pd.DataFrame(RECOPILACION,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
+                        informacion=mi_cursor.fetchall()
+                        DATA=pd.DataFrame(informacion,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
                         print(DATA)
                         opcion2_2_3=int(input("[1]Exportar reporte en formato CSV\n[2]Exportar reporte en formato MsExcel\n[3]No exportar nada\n Elija una opcion:"))
                         if opcion2_2_3==1:
@@ -259,8 +246,8 @@ while True:
                         conn=sqlite3.connect('biblioteca.db')
                         mi_cursor=conn.cursor()
                         mi_cursor.execute("SELECT*FROM BIBLOTECA WHERE = ANIO_PUBLICACION",ANIO_PUBLICACION)
-                        RECOPILACION=mi_cursor.fetchall()
-                        DATA=pd.DataFrame(RECOPILACION,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
+                        informacion=mi_cursor.fetchall()
+                        DATA=pd.DataFrame(informacion,columns=['ID','TITULO','AUTOR','GENERO','ANIO_PUBLICACION','ISBN','FECHA_ADQUISICION','ID_GENERO','ID_AUTOR'])
                         print(DATA)
                         opcion2_2_4=int(input("[1]Exportar reporte en formato CSV\n[2]Exportar reporte en formato MsExcel\n[3]No exportar nada\n Elija una opcion:"))
                         if opcion2_2_4==1:
@@ -325,6 +312,7 @@ while True:
         genero_id_encontrados=pd.read_csv('genero_id.csv')
         print(f'{"="*60}')
         print("\tREGISTRAR GENERO")
+        print(f'{"="*60}')
         NOM_GENERO=input("Ingrese un Genero: ").upper()
         ID=max(genero_id_encontrados['ID'],default=0)+1
      
@@ -364,3 +352,4 @@ while True:
         autor_id_existentes.to_csv('autor_id.csv')
         conn.close()
         break
+
